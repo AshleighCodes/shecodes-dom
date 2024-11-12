@@ -18,6 +18,7 @@ const updateTodoList = () => {
     }
 };
 
+// Create a new todo item element
 const createNewTodoItemElement = (task, index) => {
     const newTodoTaskTextElement = document.createElement("p");
     newTodoTaskTextElement.innerText = task;
@@ -39,6 +40,16 @@ const createNewTodoItemElement = (task, index) => {
     completeButtonElement.onclick = function () {
         toggleComplete(index);
     };
+    newTodoTaskElement.appendChild(completeButtonElement);
+
+    // Add important button
+    const importantButtonElement = document.createElement("input");
+    importantButtonElement.type = "button";
+    importantButtonElement.value = "Important";
+    importantButtonElement.onclick = function () {
+        toggleImportant(index);
+    };
+    newTodoTaskElement.appendChild(importantButtonElement);
 
     // Add move up button
     const moveUpButtonElement = document.createElement("button");
@@ -56,7 +67,6 @@ const createNewTodoItemElement = (task, index) => {
     };
     newTodoTaskElement.appendChild(moveDownButtonElement);
 
-    newTodoTaskElement.appendChild(completeButtonElement);
     return newTodoTaskElement;
 };
 
