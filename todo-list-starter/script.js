@@ -39,16 +39,24 @@ const createNewTodoItemElement = (task, index) => {
     completeButtonElement.onclick = function () {
         toggleComplete(index);
     };
-    newTodoTaskElement.appendChild(completeButtonElement);
 
-    const importantButtonElement = document.createElement("input");
-    importantButtonElement.type = "button";
-    importantButtonElement.value = "Important";
-    importantButtonElement.onclick = function () {
-        toggleImportant(index);
+    // Add move up button
+    const moveUpButtonElement = document.createElement("button");
+    moveUpButtonElement.innerHTML = "↑";
+    moveUpButtonElement.onclick = function () {
+        moveTaskUp(index);
     };
-    newTodoTaskElement.appendChild(importantButtonElement);
+    newTodoTaskElement.appendChild(moveUpButtonElement);
 
+    // Add move down button
+    const moveDownButtonElement = document.createElement("button");
+    moveDownButtonElement.innerHTML = "↓";
+    moveDownButtonElement.onclick = function () {
+        moveTaskDown(index);
+    };
+    newTodoTaskElement.appendChild(moveDownButtonElement);
+
+    newTodoTaskElement.appendChild(completeButtonElement);
     return newTodoTaskElement;
 };
 
@@ -80,4 +88,22 @@ for (const [index, task] of todoTasks.entries()) {
 const toggleImportant = (index) => {
     todoTasksImportant[index] = !todoTasksImportant[index];
     updateTodoList();
+};
+
+const moveTaskUp = (index) => {
+    if (index > 0) {
+        [todoTasks[index - 1], todoTasks[index]] = [todoTasks[index], todoTasks[index - 1]];
+        [todoTasksStatus[index - 1], todoTasksStatus[index]] = [todoTasksStatus[index], todoTasksStatus[index - 1]];
+        [todoTasksImportant[index - 1], todoTasksImportant[index]] = [todoTasksImportant[index], todoTasksImportant[index - 1]];
+        updateTodoList();
+    }
+};
+
+const moveTaskDown = (index) => {
+    if (index < todoTasks.length - 1) {
+        [todoTasks[index + 1], todoTasks[index]] = [todoTasks[index], todoTasks[index + 1]];
+        [todoTasksStatus[index + 1], todoTasksStatus[index]] = [todoTasksStatus[index], todoTasksStatus[index + 1]];
+        [todoTasksImportant[index + 1], todoTasksImportant[index]] = [todoTasksImportant[index], todoTasksImportant[index + 1]];
+        updateTodoList();
+    }
 };

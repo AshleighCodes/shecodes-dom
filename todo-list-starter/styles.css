@@ -57,3 +57,13 @@ input[type="button"] {
     font-weight: bold;
     color: red;
 }
+
+button {
+    margin: 0 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ddd;
+}
